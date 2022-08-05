@@ -59,19 +59,18 @@
 
     function saveAsLocalImage() {
         var myCanvas = document.getElementById("canvas");
+        const el = document.createElement('a');
         // here is the most important part because if you dont replace you will get a DOM 18 exception.
         // var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream;Content-Disposition: attachment;filename=foobar.png");
         var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-        // window.location.href = image; // it will save locally
-        // create temporary link
-        var tmpLink = document.createElement('a');
-        tmpLink.download = 'image.png'; // set the name of the download file
-        tmpLink.href = image;
 
-        // temporarily add link to body and initiate the download
-        document.body.appendChild(tmpLink);
-        tmpLink.click();
-        document.body.removeChild(tmpLink);
+        // window.location.href = image; // it will save locally
+        el.href = image;
+        el.download = 'test.png';
+
+        // 创建一个点击事件并对 a 标签进行触发
+        const event = new MouseEvent('click');
+        el.dispatchEvent(event);
     }
 
     // Trigger photo save
